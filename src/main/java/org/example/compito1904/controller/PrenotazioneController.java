@@ -31,7 +31,9 @@ public class PrenotazioneController {
     public Prenotazione createPrenotazione(@RequestBody @Validated PrenotazioneDTO prenotazioneDTO) {
         Prenotazione nuovoPrenotazione = new Prenotazione();
         Dipendente dipendente = dipendenteService.findById(prenotazioneDTO.idDipendente());
+        nuovoPrenotazione.setDipendente(dipendente);
         Viaggio viaggio = viaggioService.findById(prenotazioneDTO.idViaggio());
+        nuovoPrenotazione.setViaggio(viaggio);
         nuovoPrenotazione.setPreferenze(prenotazioneDTO.preferenze());
         return prenotazioneService.save(nuovoPrenotazione);
     }
