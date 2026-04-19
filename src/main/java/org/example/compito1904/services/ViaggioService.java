@@ -1,6 +1,7 @@
 package org.example.compito1904.services;
 
 import org.example.compito1904.entities.Viaggio;
+import org.example.compito1904.exceptions.NonTrovatoException;
 import org.example.compito1904.repositories.ViaggioRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -20,11 +21,11 @@ import org.springframework.stereotype.Service;
         }
         public void deleteById(Long id) {
             if (viaggioRepository.existsById(id)) {viaggioRepository.deleteById(id);}
-            else {throw new RuntimeException("questo utente non esiste");}
+            else {throw new NonTrovatoException(id);}
         }
 
         public Viaggio findById(Long id) {
-            return viaggioRepository.findById(id).orElseThrow(() -> new RuntimeException("utente non trovato"));
+            return viaggioRepository.findById(id).orElseThrow(() -> new NonTrovatoException(id));
         }
 
         public Page<Viaggio> findAll(int size, int page, String sortBy) {

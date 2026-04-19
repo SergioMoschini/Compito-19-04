@@ -1,6 +1,7 @@
 package org.example.compito1904.services;
 
 import org.example.compito1904.entities.Prenotazione;
+import org.example.compito1904.exceptions.NonTrovatoException;
 import org.example.compito1904.repositories.DipendenteRepository;
 import org.example.compito1904.repositories.PrenotazioneRepository;
 import org.springframework.data.domain.Page;
@@ -27,11 +28,11 @@ public class PrenotazioneService {
     }
     public void deleteById(Long id) {
         if (prenotazioneRepository.existsById(id)) {prenotazioneRepository.deleteById(id);}
-        else {throw new RuntimeException("questa prenotazione non esiste");}
+        else {throw new NonTrovatoException(id);}
     }
 
     public Prenotazione findById(Long id) {
-        return prenotazioneRepository.findById(id).orElseThrow(() -> new RuntimeException("prenotazione non trovata"));
+        return prenotazioneRepository.findById(id).orElseThrow(() -> new NonTrovatoException(id));
     }
 
     public Page<Prenotazione> findAll(int size, int page, String sortBy) {
