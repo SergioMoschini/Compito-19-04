@@ -25,4 +25,5 @@ public class Viaggio {
     @Enumerated(EnumType.STRING)
     private StatoViaggio statoViaggio;
 
+
 }
